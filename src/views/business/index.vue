@@ -71,7 +71,9 @@
         <template slot-scope="scope">{{scope.row.seller}}</template>
       </el-table-column>
       <el-table-column label="成交订单比数" align="center">
-        <template slot-scope="scope">{{scope.row.order_num}}</template>
+        <template slot-scope="scope">
+          <router-link :to="'/mission/order?mobile=' + scope.row.mobile">{{scope.row.order_num}}</router-link>
+        </template>
       </el-table-column>
       <el-table-column label="分销员创建时间" align="center">
         <template slot-scope="scope">{{scope.row.create_at}}</template>
@@ -112,22 +114,15 @@
         :total="total"
       ></el-pagination>
     </div>
-    <ShopInfo
-      ref="editUserDialog"
-      :isShowDialog="dialogTableVisible"
-      :taskData="selectTaskData"
-      v-on:editDialog="editDialogListener"
-    ></ShopInfo>
   </div>
 </template>
 
 <script>
 import { getTimeDate } from "@/utils/index.js";
-import ShopInfo from "./shopinfodialog";
 import Qs from "qs";
 // 1，未完善资料，2、已提交资料，待平台审核，3、审核中，4、审核通过，5、审核失败，6、正常，7、锁定，8，黑名单
 export default {
-  components: { ShopInfo },
+  components: {},
 
   filters: {
     statusFilter(status) {

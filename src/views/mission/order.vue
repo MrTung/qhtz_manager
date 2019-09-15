@@ -56,7 +56,6 @@
       <el-table-column label="订单费用" align="center">
         <template slot-scope="scope">{{ scope.row.money }}</template>
       </el-table-column>
-
       <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
         <template slot-scope="scope">
           <el-tag
@@ -169,6 +168,12 @@ export default {
       return statusMap[status];
     }
   },
+  mounted() {
+    let mobile = this.$route.query.mobile;
+
+    this.form.mobile = mobile;
+    this.fetchData();
+  },
   computed: {
     getbalance() {
       let userinfo = this.$store.state.userinfo;
@@ -190,7 +195,7 @@ export default {
         // name: "",
         // starttime: "",
         endtime: "",
-        mobile: "13575784241",
+        mobile: "",
         _uiName_: "eleme"
       }
     };
