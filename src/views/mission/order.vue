@@ -48,8 +48,10 @@
       <el-table-column align="center" label="订单ID" width="295">
         <template slot-scope="scope">{{ scope.row.order_no}}</template>
       </el-table-column>
-      <el-table-column label="商品名称" align="center" width="310">
-        <template slot-scope="scope">{{ scope.row.goodsTitle }}</template>
+      <el-table-column label="商品" align="center" width="200">
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" @click="lookinfo(scope.$index, scope.row)">查看</el-button>
+        </template>
       </el-table-column>
       <el-table-column label="订单费用" align="center">
         <template slot-scope="scope">{{ scope.row.money }}</template>
@@ -63,14 +65,14 @@
           >{{ getOrdername(scope.row.state) }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="结算状态" width="110" align="center">
+      <!-- <el-table-column class-name="status-col" label="结算状态" width="110" align="center">
         <template slot-scope="scope">
           <el-tag
             style="margin-bottom:5px;"
             :type="scope.row.settle_state | statusFilter"
           >{{ getSettlename(scope.row.settle_state) }}</el-tag>
         </template>
-      </el-table-column>
+      </el-table-column>-->
       <el-table-column label="下单时间" align="center">
         <template slot-scope="scope">{{ scope.row.created_at }}</template>
       </el-table-column>
@@ -80,9 +82,9 @@
       <el-table-column label="提成金额(元)" align="center">
         <template slot-scope="scope">{{ scope.row.cps_money }}</template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="260">
-        <template slot-scope="scope">
-          <!-- <el-button
+      <!-- <el-table-column label="操作" align="center" width="260">
+      <template slot-scope="scope">-->
+      <!-- <el-button
             size="mini"
             type="success"
             @click="operationHandle(scope.$index, scope.row,1)"
@@ -105,10 +107,10 @@
             type="success"
             @click="operationHandle(scope.$index, scope.row,4)"
             v-if="scope.row.orderStatusId == 5"
-          >交易完成</el-button>-->
-          <el-button size="mini" @click="lookinfo(scope.$index, scope.row)">详情</el-button>
+      >交易完成</el-button>-->
+      <!-- <el-button size="mini" @click="lookinfo(scope.$index, scope.row)">详情</el-button>
         </template>
-      </el-table-column>
+      </el-table-column>-->
     </el-table>
     <div style="float: right;height: 50px;padding-top: 10px;padding-right:50px;">
       <el-pagination
@@ -188,7 +190,7 @@ export default {
         // name: "",
         // starttime: "",
         endtime: "",
-        mobile: "",
+        mobile: "13575784241",
         _uiName_: "eleme"
       }
     };

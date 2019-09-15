@@ -78,13 +78,15 @@
       ></el-table-column>
 
       <el-table-column label="性别" align="center">
-        <template slot-scope="scope">{{scope.row.gender}}</template>
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.gender | statusFilter">{{scope.row.gender == 1 ?'男' :'女'}}</el-tag>
+        </template>
       </el-table-column>
-
       <el-table-column label="是否为会员" align="center">
-        <template slot-scope="scope">{{scope.row.is_member}}</template>
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.is_member | statusFilter">{{scope.row.is_member == 1 ?'是' :'否'}}</el-tag>
+        </template>
       </el-table-column>
-
       <el-table-column label="购买次数" align="center">
         <template slot-scope="scope">{{scope.row.trade_count}}</template>
       </el-table-column>
@@ -162,14 +164,9 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        1: "info",
-        2: "gray",
-        3: "gray",
-        4: "success",
-        5: "danger",
-        6: "success",
-        7: "danger",
-        8: "danger"
+        0: "danger",
+        1: "primary",
+        2: "danger"
       };
       return statusMap[status];
     }
