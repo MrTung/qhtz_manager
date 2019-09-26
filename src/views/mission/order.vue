@@ -234,7 +234,7 @@ export default {
       this.form.endtime = "";
     },
     fetchData() {
-      if (this.form.mobile.length != 11) return;
+      if (this.form.mobile && this.form.mobile.length != 11) return;
       let page = { pageNumber: this.currentPage, pageSize: this.pageSize };
 
       this.form["_pagination"] = JSON.stringify(page);

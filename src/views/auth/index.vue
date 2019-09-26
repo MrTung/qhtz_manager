@@ -171,11 +171,11 @@ export default {
         let param = {
           id: item.id
         };
-        this.axios
-          .delete(this.urls.delateadmin + "?" + Qs.stringify(param))
-          .then(response => {
-            this.fetchData();
-          });
+        // this.axios
+        //   .delete(this.urls.delateadmin + "?" + Qs.stringify(param))
+        //   .then(response => {
+        //     this.fetchData();
+        //   });
       });
     },
 

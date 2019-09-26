@@ -10,7 +10,6 @@ if (process.env.NODE_ENV == 'development') {
 
 //获取用户列表
 // const getuserlist = Baseurl + "/yzdata/list"
-
 const getuserlist = Baseurl + "/getcustomer"
 
 //获取分销列表
@@ -18,6 +17,20 @@ const getbusinesslist = Baseurl + "/getfenxiao"
 
 //获取订单列表
 const allorderlist = Baseurl + "/getyzsalesmantrades"
+
+
+//查询管理员账号列表
+const getalladminlist = Baseurl + "/user/info/list"
+
+//角色列表
+const rolelist = Baseurl + "/role/list"
+
+//新增用户
+const addadmin = Baseurl + "/user/info/new"
+
+
+
+
 
 
 
@@ -139,14 +152,6 @@ const taobaoupdate = Baseurl + "/user/taobao/update"
 const taobaoquery = Baseurl + "/user/taobao/info"
 
 
-//查询管理员账号列表
-const getalladminlist = Baseurl + "/user/info/alllist"
-
-//新增管理员账号
-const addadmin = Baseurl + "/user/info/new"
-
-//删除管理员账号
-const delateadmin = Baseurl + "/user/info/item"
 
 
 //邀请码列表
@@ -156,8 +161,8 @@ const invitationlist = Baseurl + "/invitation/list"
 const addinvitation = Baseurl + "/invitation/new"
 
 
-//获取所有权限
-const rolelist = Baseurl + "/all/role/list"
+// //获取所有权限
+// const rolelist = Baseurl + "/all/role/list"
 
 
 //历史公告列表
@@ -183,7 +188,6 @@ export const urls = {
     invitationlist,
     addinvitation,
     changepwd,
-    delateadmin,
     addadmin,
     getalladminlist,
     taobaoquery,

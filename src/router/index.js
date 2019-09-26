@@ -50,7 +50,7 @@ function getRouter() {
   // else if (hasGetUserInfo.userName == '用户')
   // return commonRoutes.concat(userRouter);
   // else if (hasGetUserInfo.userName == '综合')
-  return commonRoutes.concat(userRouter).concat(businessRouter)
+  return commonRoutes.concat(userRouter).concat(businessRouter).concat(compositeRouter)
   // }
   // return commonRoutes.concat(userRouter).concat(businessRouter);
 
