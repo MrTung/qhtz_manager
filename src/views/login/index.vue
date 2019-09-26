@@ -134,13 +134,6 @@ export default {
 
               if (response.code == 0) return this.$message.error(response.msg);
 
-              //登录验号
-              let params = {
-                userName: "13353333734",
-                password: "qwe1230.",
-                remember: "false"
-              };
-
               this.$store.commit("userinfo", response.data);
 
               // location.reload();

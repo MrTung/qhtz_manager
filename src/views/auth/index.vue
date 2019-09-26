@@ -116,6 +116,8 @@ export default {
     };
   },
   created() {
+    this.fetchRoleData();
+
     this.fetchData();
   },
   methods: {
@@ -154,12 +156,29 @@ export default {
       });
     },
 
+    //获取角色列表
+    fetchRoleData() {
+      let params = {
+        _uiName_: "eleme",
+        _pagination: "{'pageNumber':1,'pageSize':10}"
+      };
+      this.axios
+        .get(this.urls.rolelist + "?" + Qs.stringify(params))
+        .then(response => {});
+    },
+
     fetchData() {
       this.listLoading = true;
-      this.axios.get(this.urls.getalladminlist).then(response => {
-        this.list = response.data;
-        this.listLoading = false;
-      });
+      let params = {
+        _uiName_: "eleme",
+        _pagination: "{'pageNumber':1,'pageSize':10}"
+      };
+      this.axios
+        .get(this.urls.getalladminlist + "?" + Qs.stringify(params))
+        .then(response => {
+          this.list = response.data;
+          this.listLoading = false;
+        });
     },
 
     deleteh(item) {
