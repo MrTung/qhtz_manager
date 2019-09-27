@@ -7,13 +7,13 @@ const router = [
         component: Layout,
         redirect: '/business/index',
         name: 'Business',
-        meta: { title: '分销员管理', icon: 'form' },
+        meta: { title: '分销商管理', icon: 'form' },
         children: [
             {
                 path: 'index',
                 name: 'Businessindex',
                 component: () => import('@/views/business/index'),
-                meta: { title: '分销员列表', icon: 'form' }
+                meta: { title: '分销商列表', icon: 'form' }
             },
             // {
             //     path: 'shop',

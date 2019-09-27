@@ -12,8 +12,8 @@
           <el-option label="交易取消" value="8" />
         </el-select>
       </el-form-item>-->
-      <el-form-item label="分销员手机号" class="form-item" prop="mobile" label-width="130px">
-        <el-input placeholder="请输入分销员手机号码" v-model="form.mobile"></el-input>
+      <el-form-item label="分销商手机号" class="form-item" prop="mobile" label-width="130px">
+        <el-input placeholder="请输入分销商手机号码" v-model="form.mobile"></el-input>
       </el-form-item>
       <!-- <el-form-item label="日期范围" class="form-item" label-width="70px">
         <el-date-picker
@@ -75,7 +75,7 @@
       <el-table-column label="下单时间" align="center">
         <template slot-scope="scope">{{ scope.row.created_at }}</template>
       </el-table-column>
-      <el-table-column label="分销员手机号" align="center">
+      <el-table-column label="分销商手机号" align="center">
         <template slot-scope="scope">{{ scope.row.phone }}</template>
       </el-table-column>
       <el-table-column label="提成金额(元)" align="center">

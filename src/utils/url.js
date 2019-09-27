@@ -15,9 +15,12 @@ const getuserlist = Baseurl + "/getcustomer"
 //获取分销列表
 const getbusinesslist = Baseurl + "/getfenxiao"
 
+//获取分销商的客户列表
+const getyzsalescustomers = Baseurl + "/getyzsalescustomers"
+
+
 //获取订单列表
 const allorderlist = Baseurl + "/getyzsalesmantrades"
-
 
 //查询管理员账号列表
 const getalladminlist = Baseurl + "/user/info/list"
@@ -179,6 +182,7 @@ const deletenotice = Baseurl + "/notice/del"
 
 
 export const urls = {
+    getyzsalescustomers,
     cashoutfail,
     noticelist,
     addnotice,

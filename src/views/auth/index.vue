@@ -171,6 +171,7 @@ export default {
       this.listLoading = true;
       let params = {
         _uiName_: "eleme",
+        customer: "0",
         _pagination: "{'pageNumber':1,'pageSize':10}"
       };
       this.axios

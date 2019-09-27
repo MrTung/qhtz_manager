@@ -13,9 +13,7 @@
           <el-option label="黑名单" value="8" />
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="旺旺账号" class="form-item" label-width="80px" prop="shopAccount">
-        <el-input placeholder="请输入旺旺账号" v-model="form.shopAccount"></el-input>
-      </el-form-item>
+      <!-- 
       <el-form-item label="姓名" class="form-item" label-width="80px" prop="shopName">
         <el-input placeholder="请输入用户姓名" v-model="form.shopName"></el-input>
       </el-form-item>
@@ -96,30 +94,6 @@
       <el-table-column label="用户积分" align="center">
         <template slot-scope="scope">{{scope.row.points}}</template>
       </el-table-column>
-
-      <!-- <el-table-column label="操作" align="center" width="230">
-        <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="lookinfo(scope.$index, scope.row)">详情</el-button>
-          <el-button
-            size="mini"
-            type="success"
-            v-if="scope.row.userStatusId > 1 && scope.row.userStatusId <4"
-            @click="operationHandle(scope.$index, scope.row,6)"
-          >通过</el-button>
-          <el-button
-            size="mini"
-            type="info"
-            v-if="scope.row.userStatusId == 6"
-            @click="operationHandle(scope.$index, scope.row,7)"
-          >拉黑</el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            v-if="scope.row.userStatusId > 1 && scope.row.userStatusId <4"
-            @click="operationHandle(scope.$index, scope.row,5)"
-          >拒绝</el-button>
-        </template>
-      </el-table-column>-->
     </el-table>
     <div style="float: right;height: 50px;padding-top: 10px;padding-right:50px;">
       <el-pagination
@@ -140,13 +114,6 @@
       :taskData="selectTaskData"
       v-on:editDialog="editDialogListener"
     ></UserInfo>
-
-    <Wangwang
-      ref="wangwangInfo"
-      :isShowDialog="wangwanginfoVisible"
-      :taskData="selectWangwangData"
-      v-on:editDialog="wangwangListener"
-    ></Wangwang>
   </div>
 </template>
 
@@ -154,12 +121,11 @@
 import { getTimeDate } from "@/utils/index.js";
 
 import UserInfo from "./userinfodialog";
-import Wangwang from "./wangwanginfo";
 
 import Qs from "qs";
 // 1，未完善资料，2、已提交资料，待平台审核，3、审核中，4、审核通过，5、审核失败，6、正常，7、锁定，8，黑名单
 export default {
-  components: { UserInfo, Wangwang },
+  components: { UserInfo },
 
   filters: {
     statusFilter(status) {
@@ -177,10 +143,7 @@ export default {
       pageSize: 10,
       total: 0,
 
-      wangwanginfoVisible: false,
-
       dialogTableVisible: false,
-      selectWangwangData: {},
 
       selectTaskData: {},
 
@@ -262,21 +225,6 @@ export default {
     },
     editDialogListener(bol) {
       this.dialogTableVisible = bol;
-    },
-
-    //查询旺旺详情
-    wangwanginfo(index, row, taobaoname) {},
-    //更新旺旺详情
-    async updatewangwanginfo(index, row, taobaoname) {},
-
-    //魔盒验号
-    async boxCheck(index, row, taobaoname) {
-      let _that = this;
-      row.loading = true;
-    },
-
-    wangwangListener(bol) {
-      this.wangwanginfoVisible = bol;
     },
 
     handleSizeChange(val) {
