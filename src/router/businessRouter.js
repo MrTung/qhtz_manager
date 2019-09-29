@@ -13,14 +13,14 @@ const router = [
                 path: 'index',
                 name: 'Businessindex',
                 component: () => import('@/views/business/index'),
-                meta: { title: '分销商列表', icon: 'form' }
+                meta: { title: '有赞分销商', icon: 'form' }
             },
-            // {
-            //     path: 'shop',
-            //     name: 'Shop',
-            //     component: () => import('@/views/business/shop'),
-            //     meta: { title: '店铺列表', icon: 'tree' }
-            // }
+            {
+                path: 'index1',
+                name: 'Users1',
+                component: () => import('@/views/users/newindex'),
+                meta: { title: '自有分销商', icon: 'peoples' }
+            }
         ]
     },
     {

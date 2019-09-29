@@ -53,6 +53,9 @@
       <el-table-column align="center" label="序号" width="95">
         <template slot-scope="scope">{{ scope.$index + 1}}</template>
       </el-table-column>
+      <el-table-column label="识别码" align="center" style="color:red">
+        <template slot-scope="scope">{{scope.row.openId}}</template>
+      </el-table-column>
       <el-table-column label="手机号" align="center" style="color:red">
         <template slot-scope="scope">{{scope.row.userId}}</template>
       </el-table-column>
@@ -65,6 +68,11 @@
       <el-table-column label="账户积分" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.points}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="TA的客户" align="center" width="200">
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" @click="lookinfo(scope.$index, scope.row)">查看</el-button>
         </template>
       </el-table-column>
       <el-table-column class-name="status-col" label="状态" width="160" align="center">
@@ -122,12 +130,19 @@
       ></el-pagination>
     </div>
 
-    <UserInfo
+    <!-- <UserInfo
       ref="editUserDialog"
       :isShowDialog="dialogTableVisible"
       :taskData="selectTaskData"
       v-on:editDialog="editDialogListener"
-    ></UserInfo>
+    ></UserInfo>-->
+
+    <CustomersView
+      ref="editUserDialog"
+      :isShowDialog="dialogTableVisible"
+      :taskData="selectTaskData"
+      v-on:editDialog="editDialogListener"
+    ></CustomersView>
   </div>
 </template>
 
@@ -135,11 +150,12 @@
 import { getTimeDate } from "@/utils/index.js";
 
 import UserInfo from "./userinfodialog";
+import CustomersView from "../business/customersDialog";
 
 import Qs from "qs";
 // 1，未完善资料，2、已提交资料，待平台审核，3、审核中，4、审核通过，5、审核失败，6、正常，7、锁定，8，黑名单
 export default {
-  components: { UserInfo },
+  components: { UserInfo, CustomersView },
 
   filters: {
     statusFilter(status) {
@@ -164,7 +180,7 @@ export default {
 
       dialogTableVisible: false,
 
-      selectTaskData: {},
+      selectTaskData: "",
 
       list: null,
       listLoading: true,
@@ -244,7 +260,7 @@ export default {
     //查询用户详情
     lookinfo(index, row) {
       this.dialogTableVisible = true;
-      this.selectTaskData = row;
+      this.selectTaskData = row.mobile;
     },
     editDialogListener(bol) {
       this.dialogTableVisible = bol;

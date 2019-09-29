@@ -13,14 +13,9 @@ const router = [
                 path: 'index',
                 name: 'Users',
                 component: () => import('@/views/users/index'),
-                meta: { title: '有赞客户列表', icon: 'table' }
+                meta: { title: '客户列表', icon: 'table' }
             },
-            {
-                path: 'index1',
-                name: 'Users1',
-                component: () => import('@/views/users/newindex'),
-                meta: { title: '自有客户列表', icon: 'peoples' }
-            }
+
         ]
     },
 ]
