@@ -260,7 +260,7 @@ export default {
     //查询用户详情
     lookinfo(index, row) {
       this.dialogTableVisible = true;
-      this.selectTaskData = row.mobile;
+      this.selectTaskData = row.userId;
     },
     editDialogListener(bol) {
       this.dialogTableVisible = bol;
