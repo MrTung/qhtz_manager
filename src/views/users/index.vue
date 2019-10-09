@@ -120,12 +120,10 @@
 <script>
 import { getTimeDate } from "@/utils/index.js";
 
-import UserInfo from "./userinfodialog";
-
 import Qs from "qs";
 // 1，未完善资料，2、已提交资料，待平台审核，3、审核中，4、审核通过，5、审核失败，6、正常，7、锁定，8，黑名单
 export default {
-  components: { UserInfo },
+  components: {},
 
   filters: {
     statusFilter(status) {

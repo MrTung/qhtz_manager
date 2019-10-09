@@ -72,7 +72,10 @@
       </el-table-column>
       <el-table-column label="成交订单比数" align="center">
         <template slot-scope="scope">
-          <router-link :to="'/mission/order?mobile=' + scope.row.mobile">{{scope.row.order_num}}</router-link>
+          <router-link
+            style="color:blue"
+            :to="'/mission/order?mobile=' + scope.row.mobile"
+          >{{scope.row.order_num}}</router-link>
         </template>
       </el-table-column>
       <el-table-column label="TA的客户" align="center" width="200">
@@ -83,9 +86,9 @@
       <el-table-column label="分销商创建时间" align="center">
         <template slot-scope="scope">{{scope.row.create_at}}</template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="230">
+      <!-- <el-table-column label="操作" align="center" width="230">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="lookinfo(scope.$index, scope.row)">详情</el-button>
+          <el-button size="mini" type="primary" @click="userinfo(scope.$index, scope.row)">详情</el-button>
           <el-button
             size="mini"
             type="success"
@@ -105,7 +108,7 @@
             @click="operationHandle(scope.$index, scope.row,5)"
           >拒绝</el-button>
         </template>
-      </el-table-column>
+      </el-table-column>-->
     </el-table>
     <div style="float: right;height: 50px;padding-top: 10px;padding-right:50px;">
       <el-pagination
@@ -262,6 +265,7 @@ export default {
       this.dialogTableVisible = true;
       this.selectTaskData = row.mobile;
     },
+
     editDialogListener(bol) {
       this.dialogTableVisible = bol;
     },

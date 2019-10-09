@@ -20,6 +20,12 @@ const router = [
                 name: 'Users1',
                 component: () => import('@/views/users/newindex'),
                 meta: { title: '自有分销商', icon: 'peoples' }
+            },
+            {
+                path: 'setting',
+                name: 'Set',
+                component: () => import('@/views/users/setting'),
+                meta: { title: '分销设置', icon: 'skill' }
             }
         ]
     },

@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="买手资料"
+    title="分销商资料"
     :visible.sync="isShowDialog"
     width="30%"
     :before-close="handleClose"
@@ -9,65 +9,36 @@
   >
     <div class="app-container" style="padding-top:0px;">
       <el-form ref="form" :model="form" label-width="120px" class="formview">
-        <el-form-item label="登录手机" class="form-item">
-          <el-input v-model="form.userAccount" :disabled="true"></el-input>
+        <el-form-item label="手机" class="form-item">
+          <el-input v-model="form.userId" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="真实姓名" class="form-item" prop="salary">
-          <el-input v-model="form.trueName" :disabled="true"></el-input>
+          <el-input v-model="form.userName" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="上次登录IP" class="form-item" prop="salary">
-          <el-input v-model="form.lastIp" :disabled="true"></el-input>
+        <el-form-item label="微信号" class="form-item" prop="salary">
+          <el-input v-model="form.wxNum" :disabled="true"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="上次登录地点" class="form-item" prop="salary">
-          <el-input v-model="form.address"></el-input>
-        </el-form-item>-->
         <el-form-item label="身份证号" class="form-item" prop="salary">
           <el-input v-model="form.idCardNo" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="账户余额(积分)" class="form-item" prop="salary">
           <el-input v-model="form.points" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="微信号" class="form-item" prop="salary">
-          <el-input v-model="form.wechat" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="QQ号" class="form-item" prop="salary">
-          <el-input v-model="form.qq" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="淘宝昵称" class="form-item" prop="salary">
-          <el-input v-model="form.tbName" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="联系方式" class="form-item" prop="salary">
-          <el-input v-model="form.contact1" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="上次登录地址" class="form-item" prop="salary">
-          <el-input v-model="form.loginAddress" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="分类喜好" class="form-item" prop="salary">
-          <el-input v-model="form.like " :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="消费等级" class="form-item" prop="salary">
-          <el-input v-model="form.grades" :disabled="true"></el-input>
-        </el-form-item>
         <el-form-item label="银行卡号" class="form-item" prop="salary">
-          <el-input v-model="form.bankCardNo" :disabled="true"></el-input>
+          <el-input v-model="form.bankNo" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="开户行" class="form-item" prop="salary">
+        <el-form-item label="开户名称" class="form-item" prop="salary">
           <el-input v-model="form.bankName" :disabled="true"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="银行卡主" class="form-item" prop="salary">
-          <el-input v-model="form.trueName"></el-input>
-        </el-form-item>-->
+        <el-form-item label="开户行" class="form-item" prop="salary">
+          <el-input v-model="form.bankSubName" :disabled="true"></el-input>
+        </el-form-item>
         <el-form-item label="身份证照片" class="form-item" prop="salary">
           <a :href="fileurl1" target="_blank">
             <img :src="fileurl1" style="width: 100px; height: 100px;object-fit:contain;" />
           </a>
           <a :href="fileurl2" target="_blank">
             <img :src="fileurl2" style="width: 100px; height: 100px;object-fit:contain;" />
-          </a>
-        </el-form-item>
-        <el-form-item label="淘宝账号截图" class="form-item" prop="salary">
-          <a :href="fileurl3" target="_blank">
-            <img :src="fileurl3" style="width: 100px; height: 100px;object-fit:contain;" />
           </a>
         </el-form-item>
       </el-form>
@@ -87,42 +58,32 @@ export default {
   },
   watch: {
     taskData: function(newValue, oldValue) {
-      this.taskInfo = newValue;
-
-      this.form = this.taskInfo;
+      this.form = newValue;
       this.getFilesUrl(this.form.files);
     }
   },
   data() {
     return {
-      taskInfo: null,
-      fileurl1: "",
-      fileurl2: "",
+      fileurl1: "http://39.100.235.160:8011/upload/logo.jpeg",
+      fileurl2: "http://39.100.235.160:8011/upload/logo.jpeg",
       fileurl3: "",
       form: {
-        id: "11",
-
-        loginAddress: "",
-        balance: "4980352",
-        businessStatusId: "",
-        contact1: "",
-        contact2: "",
-        contact3: "",
+        bankName: "",
+        bankNo: "",
+        bankSubName: "",
         dbCreateSysTime: "",
         dbUpdateSysTime: "",
-        files: "",
         id: "",
-        idCard: "",
-        lastIp: "",
-        name: "",
-        qq: "",
-        roleId: "",
-        statusName: "",
+        userName: "",
+        isSalesman: "",
+        openId: "",
+        password: "",
+        salt: "",
         sysStatus: "",
-        sysUserId: "",
-        trueName: "",
+        token: "",
         userId: "",
-        wechat: ""
+        userStatus: "",
+        wxNum: ""
       }
     };
   },
@@ -150,13 +111,6 @@ export default {
       this.axios.get(this.urls.getFileurl + "?id=" + arr[1]).then(response => {
         if (response.code == 0) return this.$message.error(response.msg);
         this.fileurl2 =
-          this.urls.imgbaseurl +
-          response.data.substring(2, response.data.length);
-      });
-
-      this.axios.get(this.urls.getFileurl + "?id=" + arr[2]).then(response => {
-        if (response.code == 0) return this.$message.error(response.msg);
-        this.fileurl3 =
           this.urls.imgbaseurl +
           response.data.substring(2, response.data.length);
       });

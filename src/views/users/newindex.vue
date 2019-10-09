@@ -77,7 +77,9 @@
       </el-table-column>
       <el-table-column class-name="status-col" label="状态" width="160" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.userStatusId | statusFilter">{{ scope.row.statusName }}</el-tag>
+          <el-tag
+            :type="scope.row.userStatus | statusFilter"
+          >{{ statusnameFilter(scope.row.userStatus) }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -89,12 +91,12 @@
       ></el-table-column>
       <el-table-column label="操作" align="center" width="230">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="lookinfo(scope.$index, scope.row)">详情</el-button>
+          <el-button size="mini" type="primary" @click="userinfo(scope.$index, scope.row)">详情</el-button>
           <el-button
             size="mini"
             type="success"
-            v-if="scope.row.userStatusId > 1 && scope.row.userStatusId <4"
-            @click="operationHandle(scope.$index, scope.row,6)"
+            v-if="scope.row.userStatus == 0"
+            @click="operationHandle(scope.$index, scope.row,1)"
           >通过</el-button>
           <el-button
             size="mini"
@@ -111,8 +113,8 @@
           <el-button
             size="mini"
             type="danger"
-            v-if="scope.row.userStatusId > 1 && scope.row.userStatusId <4"
-            @click="operationHandle(scope.$index, scope.row,5)"
+            v-if="scope.row.userStatus == 0"
+            @click="operationHandle(scope.$index, scope.row,-1)"
           >拒绝</el-button>
         </template>
       </el-table-column>
@@ -130,12 +132,12 @@
       ></el-pagination>
     </div>
 
-    <!-- <UserInfo
+    <UserInfo
       ref="editUserDialog"
-      :isShowDialog="dialogTableVisible"
-      :taskData="selectTaskData"
-      v-on:editDialog="editDialogListener"
-    ></UserInfo>-->
+      :isShowDialog="dialogUserinfoVisible"
+      :taskData="selectUserinfo"
+      v-on:editDialog="userinfoDialogListener"
+    ></UserInfo>
 
     <CustomersView
       ref="editUserDialog"
@@ -149,17 +151,18 @@
 <script>
 import { getTimeDate } from "@/utils/index.js";
 
-import UserInfo from "./userinfodialog";
 import CustomersView from "../business/customersDialog";
+import UserInfo from "./userinfodialog";
 
 import Qs from "qs";
 // 1，未完善资料，2、已提交资料，待平台审核，3、审核中，4、审核通过，5、审核失败，6、正常，7、锁定，8，黑名单
 export default {
-  components: { UserInfo, CustomersView },
+  components: { CustomersView, UserInfo },
 
   filters: {
     statusFilter(status) {
       const statusMap = {
+        0: "info",
         1: "info",
         2: "gray",
         3: "gray",
@@ -179,8 +182,10 @@ export default {
       total: 0,
 
       dialogTableVisible: false,
-
       selectTaskData: "",
+
+      dialogUserinfoVisible: false,
+      selectUserinfo: {},
 
       list: null,
       listLoading: true,
@@ -200,6 +205,20 @@ export default {
     this.fetchData();
   },
   methods: {
+    statusnameFilter(status) {
+      const statusMap = {
+        0: "待审核",
+        1: "通过",
+        2: "拒绝",
+        3: "gray",
+        4: "success",
+        5: "danger",
+        6: "success",
+        7: "danger",
+        8: "danger"
+      };
+      return statusMap[status];
+    },
     formatTime(row, column, cellValue) {
       return getTimeDate(cellValue);
     },
@@ -225,14 +244,14 @@ export default {
     operationHandle(index, row, type) {
       let param = {
         id: row.id,
-        userStatusId: type
+        status: type
       };
       switch (type) {
         case 5:
           this.operationRemote(this.urls.editiusernfo, param); //拒绝
           break;
         case 6:
-          this.operationRemote(this.urls.editiusernfo, param); //通过
+          this.operationRemote(this.urls.userinfostatus, param); //通过
           break;
         case 7:
           this.operationRemote(this.urls.editiusernfo, param); //拉黑
@@ -262,8 +281,18 @@ export default {
       this.dialogTableVisible = true;
       this.selectTaskData = row.userId;
     },
+
+    userinfo(index, row) {
+      this.dialogUserinfoVisible = true;
+      this.selectUserinfo = row;
+    },
+
     editDialogListener(bol) {
       this.dialogTableVisible = bol;
+    },
+
+    userinfoDialogListener(bol) {
+      this.dialogUserinfoVisible = bol;
     },
 
     handleSizeChange(val) {

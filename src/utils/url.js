@@ -18,7 +18,6 @@ const getbusinesslist = Baseurl + "/getfenxiao"
 //获取分销商的客户列表
 const getyzsalescustomers = Baseurl + "/getyzsalescustomers"
 
-
 //获取订单列表
 const allorderlist = Baseurl + "/getyzsalesmantrades"
 
@@ -31,9 +30,14 @@ const rolelist = Baseurl + "/role/list"
 //新增用户
 const addadmin = Baseurl + "/user/info/new"
 
+//修改用户状态
+const userinfostatus = Baseurl + "/wechat/userinfo/status"
 
+//获取分销提成比例信息
+const platforminfo = Baseurl + "/platform/info"
 
-
+//修改分销提成比例信息
+const platformnew = Baseurl + "/platform/new"
 
 
 
@@ -182,6 +186,9 @@ const deletenotice = Baseurl + "/notice/del"
 
 
 export const urls = {
+    platformnew,
+    platforminfo,
+    userinfostatus,
     getyzsalescustomers,
     cashoutfail,
     noticelist,
