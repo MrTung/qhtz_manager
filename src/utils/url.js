@@ -1,5 +1,4 @@
 let Baseurl = '';
-
 if (process.env.NODE_ENV == 'development') {
     // Baseurl = "http://120.77.176.144:8011/admin"
     Baseurl = "/api"
