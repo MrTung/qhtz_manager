@@ -8,6 +8,9 @@ if (process.env.NODE_ENV == 'development') {
     Baseurl = "/admin"
 }
 
+
+const imgbaseurl = 'http://39.100.235.160:8011'
+
 //获取用户列表
 // const getuserlist = Baseurl + "/yzdata/list"
 const getuserlist = Baseurl + "/getcustomer"
@@ -40,8 +43,6 @@ const platforminfo = Baseurl + "/platform/info"
 const platformnew = Baseurl + "/platform/new"
 
 
-
-const imgbaseurl = 'http://120.77.176.144:8011'
 
 //上传文件地址 http://120.77.176.144:8011/admin
 const uploadurl = Baseurl + '/sys/file/'

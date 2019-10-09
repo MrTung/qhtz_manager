@@ -59,7 +59,9 @@ export default {
   watch: {
     taskData: function(newValue, oldValue) {
       this.form = newValue;
-      this.getFilesUrl(this.form.files);
+      this.fileurl1 = "http://39.100.235.160:8011/upload/logo.jpeg";
+      this.fileurl2 = "http://39.100.235.160:8011/upload/logo.jpeg";
+      this.getFilesUrl(this.form.fileId);
     }
   },
   data() {

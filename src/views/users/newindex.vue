@@ -57,7 +57,12 @@
         <template slot-scope="scope">{{scope.row.openId}}</template>
       </el-table-column>
       <el-table-column label="手机号" align="center" style="color:red">
-        <template slot-scope="scope">{{scope.row.userId}}</template>
+        <template slot-scope="scope">
+          <router-link
+            style="color:blue"
+            :to="'/mission/order?mobile=' + scope.row.userId"
+          >{{scope.row.userId}}</router-link>
+        </template>
       </el-table-column>
       <el-table-column label="真实姓名" align="center">
         <template slot-scope="scope">{{scope.row.userName}}</template>
@@ -65,11 +70,11 @@
       <el-table-column label="微信号" align="center">
         <template slot-scope="scope">{{scope.row.wxNum}}</template>
       </el-table-column>
-      <el-table-column label="账户积分" align="center">
+      <!-- <el-table-column label="账户积分" align="center">
         <template slot-scope="scope">
           <span>{{scope.row.points}}</span>
         </template>
-      </el-table-column>
+      </el-table-column>-->
       <el-table-column label="TA的客户" align="center" width="200">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="lookinfo(scope.$index, scope.row)">查看</el-button>
@@ -95,25 +100,13 @@
           <el-button
             size="mini"
             type="success"
-            v-if="scope.row.userStatus == 0"
+            v-if="scope.row.userStatus == 2"
             @click="operationHandle(scope.$index, scope.row,1)"
           >通过</el-button>
           <el-button
             size="mini"
-            type="success"
-            v-if="scope.row.userStatusId == 7"
-            @click="operationHandle(scope.$index, scope.row,1)"
-          >恢复</el-button>
-          <el-button
-            size="mini"
-            type="info"
-            v-if="scope.row.userStatusId == 6"
-            @click="operationHandle(scope.$index, scope.row,7)"
-          >拉黑</el-button>
-          <el-button
-            size="mini"
             type="danger"
-            v-if="scope.row.userStatus == 0"
+            v-if="scope.row.userStatus == 2"
             @click="operationHandle(scope.$index, scope.row,-1)"
           >拒绝</el-button>
         </template>
@@ -162,15 +155,10 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        0: "info",
-        1: "info",
+        "-1": "danger",
+        1: "success",
         2: "gray",
-        3: "gray",
-        4: "success",
-        5: "danger",
-        6: "success",
-        7: "danger",
-        8: "danger"
+        0: "info"
       };
       return statusMap[status];
     }
@@ -207,15 +195,10 @@ export default {
   methods: {
     statusnameFilter(status) {
       const statusMap = {
-        0: "待审核",
-        1: "通过",
-        2: "拒绝",
-        3: "gray",
-        4: "success",
-        5: "danger",
-        6: "success",
-        7: "danger",
-        8: "danger"
+        "-1": "审核失败",
+        0: "待提交资料",
+        1: "审核通过",
+        2: "待审核"
       };
       return statusMap[status];
     },
@@ -247,23 +230,11 @@ export default {
         status: type
       };
       switch (type) {
-        case 5:
-          this.operationRemote(this.urls.editiusernfo, param); //拒绝
-          break;
-        case 6:
-          this.operationRemote(this.urls.userinfostatus, param); //通过
-          break;
-        case 7:
-          this.operationRemote(this.urls.editiusernfo, param); //拉黑
+        case -1:
+          this.operationRemote(this.urls.userinfostatus, param); //拒绝
           break;
         case 1:
-          this.operationRemote(this.urls.editiusernfo, param); //恢复
-          break;
-        case 9:
-          // this.operationRemote(this.urls.ordersuccress, param); //查看资料
-          break;
-        case 2:
-          this.operationRemote(this.urls.orderlist, param); //详情 TODO
+          this.operationRemote(this.urls.userinfostatus, param); //通过
           break;
         default:
           break;

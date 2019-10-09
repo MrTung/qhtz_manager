@@ -9,12 +9,12 @@ const router = [
         name: 'Business',
         meta: { title: '分销商管理', icon: 'form' },
         children: [
-            {
-                path: 'index',
-                name: 'Businessindex',
-                component: () => import('@/views/business/index'),
-                meta: { title: '有赞分销商(参考数据,无实际意义)', icon: 'form' }
-            },
+            // {
+            //     path: 'index',
+            //     name: 'Businessindex',
+            //     component: () => import('@/views/business/index'),
+            //     meta: { title: '有赞分销商(参考数据,无实际意义)', icon: 'form' }
+            // },
             {
                 path: 'index1',
                 name: 'Users1',
