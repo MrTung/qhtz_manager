@@ -3,6 +3,27 @@
 import Layout from '@/layout'
 const router = [
     {
+        path: '/goods',
+        component: Layout,
+        redirect: '/goods/index',
+        name: 'Goods',
+        meta: { title: '商品管理', icon: 'example' },
+        children: [
+            // {
+            //     path: 'index',
+            //     name: 'Index',
+            //     component: () => import('@/views/mission/index'),
+            //     meta: { title: '订单列表', icon: 'table' }
+            // },
+            {
+                path: 'goods',
+                name: 'Goods',
+                component: () => import('@/views/goods/index'),
+                meta: { title: '商品列表', icon: 'list' }
+            }
+        ]
+    },
+    {
         path: '/business',
         component: Layout,
         redirect: '/business/index',
@@ -50,6 +71,7 @@ const router = [
             }
         ]
     },
+
 ]
 
 export default router

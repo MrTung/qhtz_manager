@@ -107,13 +107,6 @@
         :total="total"
       ></el-pagination>
     </div>
-
-    <UserInfo
-      ref="editUserDialog"
-      :isShowDialog="dialogTableVisible"
-      :taskData="selectTaskData"
-      v-on:editDialog="editDialogListener"
-    ></UserInfo>
   </div>
 </template>
 

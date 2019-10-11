@@ -41,6 +41,13 @@ const platforminfo = Baseurl + "/platform/info"
 //修改分销提成比例信息
 const platformnew = Baseurl + "/platform/new"
 
+//获取商品列表
+const onsalelist = Baseurl + "/items/onsale/list"
+
+//设置商品折扣信息
+const discount = Baseurl + "/items/onsale/discount"
+
+
 
 
 //上传文件地址 http://120.77.176.144:8011/admin
@@ -186,6 +193,8 @@ const deletenotice = Baseurl + "/notice/del"
 
 
 export const urls = {
+    discount,
+    onsalelist,
     platformnew,
     platforminfo,
     userinfostatus,

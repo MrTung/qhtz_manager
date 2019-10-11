@@ -53,9 +53,9 @@
       <el-table-column align="center" label="序号" width="95">
         <template slot-scope="scope">{{ scope.$index + 1}}</template>
       </el-table-column>
-      <el-table-column label="识别码" align="center" style="color:red">
+      <!-- <el-table-column label="识别码" align="center" style="color:red">
         <template slot-scope="scope">{{scope.row.openId}}</template>
-      </el-table-column>
+      </el-table-column>-->
       <el-table-column label="手机号" align="center" style="color:red">
         <template slot-scope="scope">
           <router-link
@@ -69,6 +69,11 @@
       </el-table-column>
       <el-table-column label="微信号" align="center">
         <template slot-scope="scope">{{scope.row.wxNum}}</template>
+      </el-table-column>
+      <el-table-column label="分销等级" align="center">
+        <template slot-scope="scope">
+          <span>{{scope.row.points}}</span>
+        </template>
       </el-table-column>
       <!-- <el-table-column label="账户积分" align="center">
         <template slot-scope="scope">
@@ -97,6 +102,13 @@
       <el-table-column label="操作" align="center" width="230">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="userinfo(scope.$index, scope.row)">详情</el-button>
+          <el-button size="mini" type="success" @click="edituserinfo(scope.$index, scope.row)">编辑</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            v-if="scope.row.userStatus == 1"
+            @click="operationHandle(scope.$index, scope.row,3)"
+          >清退</el-button>
           <el-button
             size="mini"
             type="success"
@@ -138,6 +150,12 @@
       :taskData="selectTaskData"
       v-on:editDialog="editDialogListener"
     ></CustomersView>
+
+    <Editinfo
+      :isShowDialog="edituserVisible"
+      :taskData="selectUserinfo"
+      v-on:editDialog="editinfoDialogListener"
+    ></Editinfo>
   </div>
 </template>
 
@@ -146,11 +164,12 @@ import { getTimeDate } from "@/utils/index.js";
 
 import CustomersView from "../business/customersDialog";
 import UserInfo from "./userinfodialog";
+import Editinfo from "./editDialog";
 
 import Qs from "qs";
 // 1，未完善资料，2、已提交资料，待平台审核，3、审核中，4、审核通过，5、审核失败，6、正常，7、锁定，8，黑名单
 export default {
-  components: { CustomersView, UserInfo },
+  components: { CustomersView, UserInfo, Editinfo },
 
   filters: {
     statusFilter(status) {
@@ -174,6 +193,8 @@ export default {
 
       dialogUserinfoVisible: false,
       selectUserinfo: {},
+
+      edituserVisible: false,
 
       list: null,
       listLoading: true,
@@ -247,14 +268,21 @@ export default {
       });
     },
 
-    //查询用户详情
+    //查询客户列表
     lookinfo(index, row) {
       this.dialogTableVisible = true;
       this.selectTaskData = row.userId;
     },
 
+    //查询用户详情
     userinfo(index, row) {
       this.dialogUserinfoVisible = true;
+      this.selectUserinfo = row;
+    },
+
+    //编辑用户
+    edituserinfo(index, row) {
+      this.edituserVisible = true;
       this.selectUserinfo = row;
     },
 
@@ -264,6 +292,10 @@ export default {
 
     userinfoDialogListener(bol) {
       this.dialogUserinfoVisible = bol;
+    },
+
+    editinfoDialogListener(bol) {
+      this.edituserVisible = bol;
     },
 
     handleSizeChange(val) {
