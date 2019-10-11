@@ -16,7 +16,7 @@ const router = [
             //     meta: { title: '订单列表', icon: 'table' }
             // },
             {
-                path: 'goods',
+                path: 'index',
                 name: 'Goods',
                 component: () => import('@/views/goods/index'),
                 meta: { title: '商品列表', icon: 'list' }

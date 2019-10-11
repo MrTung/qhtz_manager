@@ -81,9 +81,9 @@
       <el-table-column label="高级分销员折扣价(%)" align="center">
         <template slot-scope="{row}">
           <template v-if="row.edit">
-            <el-input v-model="row.discount.tree" class="edit-input" size="small" />
+            <el-input v-model="row.discount.three" class="edit-input" size="small" type="number" />
           </template>
-          <span v-else>{{ row.discount.tree }}</span>
+          <span v-else>{{ row.discount.three }}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作">
@@ -170,11 +170,11 @@ export default {
       this.axios
         .get(this.urls.onsalelist + "?" + Qs.stringify(this.form))
         .then(response => {
-          this.list = response.data.map(v => {
+          this.list = response.data.record_list.map(v => {
             this.$set(v, "edit", false);
             v.discount.originalOne = v.discount.one;
             v.discount.originalTwo = v.discount.two;
-            v.discount.originalTree = v.discount.tree;
+            v.discount.originalthree = v.discount.three;
             return v;
           });
           this.total = response.data.total;
@@ -184,7 +184,7 @@ export default {
     cancelEdit(row) {
       row.discount.one = row.discount.originalOne;
       row.discount.two = row.discount.originalTwo;
-      row.discount.tree = row.discount.originalTree;
+      row.discount.three = row.discount.originalthree;
 
       row.edit = false;
       this.$message({
@@ -196,13 +196,13 @@ export default {
       row.edit = false;
       row.originalOne = row.discount.one;
       row.originalTwo = row.discount.two;
-      row.originalTree = row.discount.tree;
+      row.originalthree = row.discount.three;
 
       let param = {
         id: row.id,
         one: row.discount.one,
         two: row.discount.two,
-        tree: row.discount.tree
+        three: row.discount.three
       };
 
       this.axios
