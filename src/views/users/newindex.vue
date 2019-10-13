@@ -72,17 +72,20 @@
       </el-table-column>
       <el-table-column label="分销等级" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.points}}</span>
+          <span>{{gradeFilter(scope.row.grade)}}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="账户积分" align="center">
+      <el-table-column label="邀请方" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.points}}</span>
+          <span>{{scope.row.masterInfo}}</span>
         </template>
-      </el-table-column>-->
+      </el-table-column>
       <el-table-column label="TA的客户" align="center" width="200">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="lookinfo(scope.$index, scope.row)">查看</el-button>
+          <div
+            @click="lookinfo(scope.$index, scope.row)"
+            style="color:blue; cursor: pointer;"
+          >{{scope.row.studentCount}}</div>
         </template>
       </el-table-column>
       <el-table-column class-name="status-col" label="状态" width="160" align="center">
@@ -189,7 +192,7 @@ export default {
       total: 0,
 
       dialogTableVisible: false,
-      selectTaskData: "",
+      selectTaskData: 0,
 
       dialogUserinfoVisible: false,
       selectUserinfo: {},
@@ -220,6 +223,14 @@ export default {
         0: "待提交资料",
         1: "审核通过",
         2: "待审核"
+      };
+      return statusMap[status];
+    },
+    gradeFilter(status) {
+      const statusMap = {
+        1: "初级",
+        2: "中级",
+        3: "高级"
       };
       return statusMap[status];
     },
@@ -271,7 +282,7 @@ export default {
     //查询客户列表
     lookinfo(index, row) {
       this.dialogTableVisible = true;
-      this.selectTaskData = row.userId;
+      this.selectTaskData = row.id;
     },
 
     //查询用户详情

@@ -37,17 +37,17 @@ const router = [
             //     meta: { title: '有赞分销商(参考数据,无实际意义)', icon: 'form' }
             // },
             {
-                path: 'index1',
+                path: 'index',
                 name: 'Users1',
                 component: () => import('@/views/users/newindex'),
                 meta: { title: '分销商列表', icon: 'peoples' }
             },
-            {
-                path: 'setting',
-                name: 'Set',
-                component: () => import('@/views/users/setting'),
-                meta: { title: '分销设置', icon: 'skill' }
-            }
+            // {
+            //     path: 'setting',
+            //     name: 'Set',
+            //     component: () => import('@/views/users/setting'),
+            //     meta: { title: '分销设置', icon: 'skill' }
+            // }
         ]
     },
     {

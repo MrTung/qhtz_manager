@@ -19,20 +19,36 @@
         <el-table-column align="center" label="序号" width="95">
           <template slot-scope="scope">{{ scope.$index + 1}}</template>
         </el-table-column>
-        <el-table-column label="客户头像" align="center">
+        <!-- <el-table-column label="客户头像" align="center">
           <template slot-scope="scope">
             <img :src="scope.row.avatar" style="width:60px;height: 60px;border: #EBEEF5 solid 1px;" />
           </template>
+        </el-table-column>-->
+        <el-table-column label="客户姓名" align="center">
+          <template slot-scope="scope">{{ scope.row.userName }}</template>
         </el-table-column>
-        <el-table-column align="center" label="粉丝id" width="295">
-          <template slot-scope="scope">{{ scope.row.fans_id}}</template>
+        <el-table-column label="手机号码" align="center">
+          <template slot-scope="scope">{{ scope.row.userId }}</template>
         </el-table-column>
-        <el-table-column label="客户昵称" align="center">
-          <template slot-scope="scope">{{ scope.row.nickname }}</template>
+        <el-table-column label="分销等级" align="center">
+          <template slot-scope="scope">
+            <span>{{gradeFilter(scope.row.grade)}}</span>
+          </template>
         </el-table-column>
-        <el-table-column label="粉丝类型" align="center">
-          <template slot-scope="scope">{{ scope.row.fans_type }}</template>
+        <el-table-column class-name="status-col" label="状态" width="160" align="center">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.userStatus | statusFilter"
+            >{{ statusnameFilter(scope.row.userStatus) }}</el-tag>
+          </template>
         </el-table-column>
+        <el-table-column
+          align="center"
+          prop="dbCreateSysTime"
+          label="添加时间"
+          width="200"
+          :formatter="formatTime"
+        ></el-table-column>
       </el-table>
     </div>
   </el-dialog>
@@ -45,9 +61,20 @@ import { getTimeDate } from "@/utils/index.js";
 export default {
   name: "orderinfo",
   components: {},
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        "-1": "danger",
+        1: "success",
+        2: "gray",
+        0: "info"
+      };
+      return statusMap[status];
+    }
+  },
   props: {
     isShowDialog: Boolean,
-    taskData: { type: String }
+    taskData: { type: Number }
   },
   watch: {
     taskData: function(newValue, oldValue) {
@@ -67,29 +94,46 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    formatTime(row, column, cellValue) {
+      return getTimeDate(cellValue);
+    },
+    statusnameFilter(status) {
+      const statusMap = {
+        "-1": "审核失败",
+        0: "待提交资料",
+        1: "审核通过",
+        2: "待审核"
+      };
+      return statusMap[status];
+    },
+    gradeFilter(status) {
+      const statusMap = {
+        1: "初级",
+        2: "中级",
+        3: "高级"
+      };
+      return statusMap[status];
+    },
     //获取分销商客户列表
-    fetchCustomers(mobile) {
+    fetchCustomers(id) {
       let params = {
-        mobile: mobile,
-        _uiName_: "eleme"
+        userId: id
+        // _uiName_: "eleme"
       };
 
-      let page = { pageNumber: this.currentPage, pageSize: this.pageSize };
+      // let page = { pageNumber: this.currentPage, pageSize: this.pageSize };
 
-      params["_pagination"] = JSON.stringify(page);
+      // params["_pagination"] = JSON.stringify(page);
 
       this.listLoading = true;
       this.axios
-        .get(this.urls.getyzsalescustomers + "?" + Qs.stringify(params))
+        .get(this.urls.relationshiplist + "?" + Qs.stringify(params))
         .then(response => {
           if (response.data.errcode == 0)
             return this.$message.error(response.data.errmsg);
-          this.list = response.data.customers;
+          this.list = response.data;
           this.listLoading = false;
         });
-    },
-    formatTime(cellValue) {
-      return getTimeDate(cellValue);
     },
 
     //dialog关闭按钮

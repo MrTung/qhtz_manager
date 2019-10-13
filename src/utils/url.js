@@ -47,6 +47,14 @@ const onsalelist = Baseurl + "/items/onsale/list"
 //设置商品折扣信息
 const discount = Baseurl + "/items/onsale/discount"
 
+//设置分销员等级
+const setgrade = Baseurl + "/user/info/grade"
+
+//获取客户列表
+const relationshiplist = Baseurl + "/userinfo/relationship/list/uid"
+
+
+
 
 
 
@@ -193,6 +201,8 @@ const deletenotice = Baseurl + "/notice/del"
 
 
 export const urls = {
+    relationshiplist,
+    setgrade,
     discount,
     onsalelist,
     platformnew,

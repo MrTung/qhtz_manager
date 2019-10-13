@@ -16,7 +16,7 @@
           <el-input v-model="form.userName" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="分销等级:" class="form-item">
-          <el-select v-model="form.userStatusId" placeholder="请选择分销员等级" style="width: 100%;">
+          <el-select v-model="form.grade" placeholder="请选择分销员等级" style="width: 100%;">
             <el-option label="初级分销员" value="1" />
             <el-option label="中级分销员" value="2" />
             <el-option label="高级分销员" value="3" />
@@ -51,7 +51,9 @@ export default {
   data() {
     return {
       listLoading: false,
-      form: {}
+      form: {
+        grade: ""
+      }
     };
   },
   computed: {},
@@ -60,13 +62,17 @@ export default {
   methods: {
     //确认修改
     submit() {
-      //     let param = {
-      //     id: row.id,
-      //     status: type
-      //   };
+      let param = {
+        id: this.form.id,
+        grade: this.form.grade
+      };
       this.axios
-        .post(this.urls.platformnew + "?" + Qs.stringify(this.form))
+        .put(this.urls.setgrade + "?" + Qs.stringify(param))
         .then(response => {
+          this.$message({
+            message: "设置成功",
+            type: "success"
+          });
           this.handleClose();
         });
     },
