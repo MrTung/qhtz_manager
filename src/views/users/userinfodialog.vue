@@ -22,7 +22,7 @@
           <el-input v-model="form.idCardNo" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="账户余额(积分)" class="form-item" prop="salary">
-          <el-input v-model="form.points" :disabled="true"></el-input>
+          <el-input v-model="getbalance" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="银行卡号" class="form-item" prop="salary">
           <el-input v-model="form.bankNo" :disabled="true"></el-input>
@@ -91,8 +91,11 @@ export default {
   },
   computed: {
     getbalance() {
-      let userinfo = this.$store.state.userinfo;
-      return userinfo.balance;
+      return (
+        Math.ceil(
+          (this.form.freezeBalance + this.form.availableBalance) * 100
+        ) / 100
+      );
     }
   },
   created() {},

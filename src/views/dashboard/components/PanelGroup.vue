@@ -131,75 +131,75 @@ export default {
 
     //今日订单
     getTodayOrders() {
-      let param = {
-        progress: "",
-        name: "",
-        starttime: this.getNowFormatDate(),
-        endtime: this.getTomorrowFormatDate(),
-        desc: "2",
-        _uiName_: "eleme",
-        _pagination: "{'pageNumber':1,'pageSize':10}"
-      };
-      this.axios
-        .get(this.urls.allorderlist + "?" + Qs.stringify(param))
-        .then(response => {
-          this.totalOrders = response.data.totalRow;
-        });
+      // let param = {
+      //   progress: "",
+      //   name: "",
+      //   starttime: this.getNowFormatDate(),
+      //   endtime: this.getTomorrowFormatDate(),
+      //   desc: "2",
+      //   _uiName_: "eleme",
+      //   _pagination: "{'pageNumber':1,'pageSize':10}"
+      // };
+      // this.axios
+      //   .get(this.urls.allorderlist + "?" + Qs.stringify(param))
+      //   .then(response => {
+      //     this.totalOrders = response.data.totalRow;
+      //   });
     },
     //今日商家
     getTodayBusiness() {
-      let param = {
-        businessStatusId: "",
-        starttime: this.getNowFormatDate(),
-        endtime: this.getTomorrowFormatDate(),
-        _uiName_: "eleme",
-        _pagination: "{'pageNumber':1,'pageSize':10}"
-      };
-      this.axios
-        .get(this.urls.getbusinesslist + "?" + Qs.stringify(param))
-        .then(response => {
-          this.totalBusiness = response.data.totalRow;
-        });
+      // let param = {
+      //   businessStatusId: "",
+      //   starttime: this.getNowFormatDate(),
+      //   endtime: this.getTomorrowFormatDate(),
+      //   _uiName_: "eleme",
+      //   _pagination: "{'pageNumber':1,'pageSize':10}"
+      // };
+      // this.axios
+      //   .get(this.urls.getbusinesslist + "?" + Qs.stringify(param))
+      //   .then(response => {
+      //     this.totalBusiness = response.data.totalRow;
+      //   });
     },
     //今日用户
     getTodayUser() {
-      let param = {
-        userStatusId: "",
-        starttime: this.getNowFormatDate(),
-        endtime: this.getTomorrowFormatDate(),
-        _uiName_: "eleme",
-        _pagination: "{'pageNumber':1,'pageSize':10}"
-      };
-      this.axios
-        .get(this.urls.getuserlist + "?" + Qs.stringify(param))
-        .then(response => {
-          this.totalUsers = response.data.totalRow;
-        });
+      // let param = {
+      //   userStatusId: "",
+      //   starttime: this.getNowFormatDate(),
+      //   endtime: this.getTomorrowFormatDate(),
+      //   _uiName_: "eleme",
+      //   _pagination: "{'pageNumber':1,'pageSize':10}"
+      // };
+      // this.axios
+      //   .get(this.urls.getuserlist + "?" + Qs.stringify(param))
+      //   .then(response => {
+      //     this.totalUsers = response.data.totalRow;
+      //   });
     },
 
     //今日充值金额
     getTodayRecharge() {
-      let param = {
-        starttime: this.getNowFormatDate(),
-        endtime: this.getTomorrowFormatDate(),
-        shopType: "",
-        shopAccount: "",
-        shopName: "",
-        shopUrl: "",
-        _uiName_: "eleme",
-        _pagination: "{'pageNumber':1,'pageSize':10}"
-      };
-      this.axios
-        .get(this.urls.rechargelist + "?" + Qs.stringify(param))
-        .then(response => {
-          let total = 0;
-          response.data.list.forEach(row => {
-            if (row.statusName == "充值成功") {
-              total += row.money / 1;
-            }
-          });
-          this.totalRecharge = total;
-        });
+      // let param = {
+      //   starttime: this.getNowFormatDate(),
+      //   endtime: this.getTomorrowFormatDate(),
+      //   shopType: "",
+      //   shopAccount: "",
+      //   shopName: "",
+      //   shopUrl: "",
+      //   _uiName_: "eleme",
+      //   _pagination: "{'pageNumber':1,'pageSize':10}"
+      // };
+      // this.axios
+      //   .get(this.urls.rechargelist + "?" + Qs.stringify(param))
+      //   .then(response => {
+      //     let total = 0;
+      //     response.data.list.forEach(row => {
+      //       if (row.statusName == "充值成功") {
+      //         total += row.money / 1;
+      //       }
+      //     });
+      //     this.totalRecharge = total;
+      //   });
     }
   }
 };

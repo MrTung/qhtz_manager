@@ -106,12 +106,12 @@
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="userinfo(scope.$index, scope.row)">详情</el-button>
           <el-button size="mini" type="success" @click="edituserinfo(scope.$index, scope.row)">编辑</el-button>
-          <el-button
+          <!-- <el-button
             size="mini"
             type="danger"
             v-if="scope.row.userStatus == 1"
             @click="operationHandle(scope.$index, scope.row,3)"
-          >清退</el-button>
+          >清退</el-button>-->
           <el-button
             size="mini"
             type="success"
@@ -228,9 +228,10 @@ export default {
     },
     gradeFilter(status) {
       const statusMap = {
-        1: "初级",
-        2: "中级",
-        3: "高级"
+        0: "普通会员",
+        1: "高级分销员",
+        2: "中级分销员",
+        3: "初级分销员"
       };
       return statusMap[status];
     },

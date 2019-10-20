@@ -23,6 +23,9 @@ const getyzsalescustomers = Baseurl + "/getyzsalescustomers"
 //获取订单列表
 const allorderlist = Baseurl + "/getyzsalesmantrades"
 
+//获取订单列表 自己订单
+const myallorderlist = Baseurl + "/salesman/order/list"
+
 //查询管理员账号列表
 const getalladminlist = Baseurl + "/user/info/list"
 
@@ -201,6 +204,7 @@ const deletenotice = Baseurl + "/notice/del"
 
 
 export const urls = {
+    myallorderlist,
     relationshiplist,
     setgrade,
     discount,

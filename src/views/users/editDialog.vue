@@ -17,9 +17,10 @@
         </el-form-item>
         <el-form-item label="分销等级:" class="form-item">
           <el-select v-model="form.grade" placeholder="请选择分销员等级" style="width: 100%;">
-            <el-option label="初级分销员" value="1" />
+            <el-option label="普通会员" value="0" />
+            <el-option label="初级分销员" value="3" />
             <el-option label="中级分销员" value="2" />
-            <el-option label="高级分销员" value="3" />
+            <el-option label="高级分销员" value="1" />
           </el-select>
         </el-form-item>
       </el-form>

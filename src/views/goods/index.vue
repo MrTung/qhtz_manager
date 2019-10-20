@@ -1,15 +1,16 @@
 <template>
   <div class="app-container">
-    <!-- <el-form ref="form" :model="form">
+    <el-form ref="form" :model="form">
+      <el-form-item label="商品ID" class="form-item" prop="mobile" label-width="90px">
+        <el-input placeholder="请输入商品ID" v-model="form.id"></el-input>
+      </el-form-item>
       <el-form-item label="商品名称" class="form-item" prop="mobile" label-width="90px">
         <el-input placeholder="请输入商品名称" v-model="form.goodsname"></el-input>
       </el-form-item>
-
       <el-form-item class="form-item">
-        <el-button type="primary" @click="onSubmit">查询</el-button>
-        <el-button @click="onCancel">重置</el-button>
+        <el-button type="primary" @click="getList">查询</el-button>
       </el-form-item>
-    </el-form>-->
+    </el-form>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -41,7 +42,7 @@
 
       <el-table-column align="center" label="商品价格">
         <template slot-scope="scope">
-          <span>{{ scope.row.info.price.toFixed(2) }}</span>
+          <span>{{ (scope.row.info.price/100).toFixed(2) }}</span>
         </template>
       </el-table-column>
 
@@ -62,7 +63,7 @@
         </template>
       </el-table-column>-->
 
-      <el-table-column label="初级分销员折扣价(%)" align="center">
+      <el-table-column label="高级分销员折扣价(%)" align="center">
         <template slot-scope="{row}">
           <template v-if="row.edit">
             <el-input v-model="row.discount.one" class="edit-input" size="small" />
@@ -78,7 +79,7 @@
           <span v-else>{{ row.discount.two }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="高级分销员折扣价(%)" align="center">
+      <el-table-column label="初级分销员折扣价(%)" align="center">
         <template slot-scope="{row}">
           <template v-if="row.edit">
             <el-input v-model="row.discount.three" class="edit-input" size="small" type="number" />
@@ -152,7 +153,8 @@ export default {
       pageSize: 10,
       total: 0,
       form: {
-        // goodsname: "",
+        id: "",
+        goodsname: "",
         _uiName_: "eleme"
       }
     };

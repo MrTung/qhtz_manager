@@ -12,8 +12,8 @@
           <el-option label="交易取消" value="8" />
         </el-select>
       </el-form-item>-->
-      <el-form-item label="分销商手机号" class="form-item" prop="mobile" label-width="130px">
-        <el-input placeholder="请输入分销商手机号码" v-model="form.mobile"></el-input>
+      <el-form-item label="手机号" class="form-item" prop="mobile" label-width="80px">
+        <el-input placeholder="请输入手机号码" v-model="form.mobile"></el-input>
       </el-form-item>
       <!-- <el-form-item label="日期范围" class="form-item" label-width="70px">
         <el-date-picker
@@ -34,7 +34,7 @@
       </el-form-item>-->
       <el-form-item class="form-item">
         <el-button type="primary" @click="onSubmit">查询</el-button>
-        <el-button @click="onCancel">重置</el-button>
+        <!-- <el-button @click="onCancel">重置</el-button> -->
       </el-form-item>
     </el-form>
     <el-table
@@ -46,7 +46,7 @@
       highlight-current-row
     >
       <el-table-column align="center" label="订单ID" width="295">
-        <template slot-scope="scope">{{ scope.row.order_no}}</template>
+        <template slot-scope="scope">{{ scope.row.full_order_info.order_info.tid}}</template>
       </el-table-column>
       <el-table-column label="商品" align="center" width="200">
         <template slot-scope="scope">
@@ -54,14 +54,14 @@
         </template>
       </el-table-column>
       <el-table-column label="订单费用" align="center">
-        <template slot-scope="scope">{{ scope.row.money }}</template>
+        <template slot-scope="scope">{{ scope.row.full_order_info.pay_info.payment }}</template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="订单状态" width="110" align="center">
+      <el-table-column class-name="status-col" label="订单状态" align="center">
         <template slot-scope="scope">
           <el-tag
             style="margin-bottom:5px;"
-            :type="scope.row.state | orderFilter"
-          >{{ getOrdername(scope.row.state) }}</el-tag>
+            :type="scope.row.full_order_info.order_info.status_str | orderFilter"
+          >{{ scope.row.full_order_info.order_info.status_str }}</el-tag>
         </template>
       </el-table-column>
       <!-- <el-table-column class-name="status-col" label="结算状态" width="110" align="center">
@@ -72,15 +72,18 @@
           >{{ getSettlename(scope.row.settle_state) }}</el-tag>
         </template>
       </el-table-column>-->
-      <el-table-column label="下单时间" align="center">
-        <template slot-scope="scope">{{ scope.row.created_at }}</template>
-      </el-table-column>
-      <el-table-column label="分销商手机号" align="center">
+      <el-table-column
+        align="center"
+        prop="full_order_info.order_info.created"
+        label="下单时间"
+        :formatter="formatTime"
+      ></el-table-column>
+      <!-- <el-table-column label="分销商手机号" align="center">
         <template slot-scope="scope">{{ scope.row.phone }}</template>
-      </el-table-column>
-      <el-table-column label="提成金额(元)" align="center">
+      </el-table-column>-->
+      <!-- <el-table-column label="提成金额(元)" align="center">
         <template slot-scope="scope">{{ scope.row.cps_money }}</template>
-      </el-table-column>
+      </el-table-column>-->
       <!-- <el-table-column label="操作" align="center" width="260">
       <template slot-scope="scope">-->
       <!-- <el-button
@@ -143,10 +146,10 @@ export default {
     orderFilter(status) {
       const statusMap = {
         1: "info",
-        2: "warning",
-        3: "danger",
+        待发货: "warning",
+        已关闭: "danger",
         4: "primary",
-        5: "success",
+        已完成: "success",
         6: "success",
         100: "success"
       };
@@ -170,7 +173,6 @@ export default {
   },
   mounted() {
     let mobile = this.$route.query.mobile;
-
     this.form.mobile = mobile;
     this.fetchData();
   },
@@ -183,7 +185,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      pageSize: 5,
+      pageSize: 10,
       total: 0,
 
       selectTaskData: {},
@@ -191,18 +193,12 @@ export default {
       list: null,
       listLoading: false,
       form: {
-        // progress: "",
-        // name: "",
-        // starttime: "",
-        endtime: "",
         mobile: "",
         _uiName_: "eleme"
       }
     };
   },
-  created() {
-    this.fetchData();
-  },
+  created() {},
   methods: {
     getOrdername(type) {
       const statusMap = {
@@ -229,25 +225,25 @@ export default {
     onSubmit() {
       this.fetchData();
     },
-    onCancel() {
-      this.form.starttime = "";
-      this.form.endtime = "";
-    },
+    onCancel() {},
     fetchData() {
-      if (this.form.mobile && this.form.mobile.length != 11) return;
+      if (!this.form.mobile || this.form.mobile.length != 11) return;
       let page = { pageNumber: this.currentPage, pageSize: this.pageSize };
-
       this.form["_pagination"] = JSON.stringify(page);
 
       this.listLoading = true;
       this.axios
-        .get(this.urls.allorderlist + "?" + Qs.stringify(this.form))
+        .get(this.urls.myallorderlist + "?" + Qs.stringify(this.form))
         .then(response => {
-          this.list = response.data.list;
+          //   response.data.data[0].full_order_info_list.forEach(function (item) {
+          //   item.full_order_info.order_info.created = util.formatTime(item.full_order_info.order_info.created, 'Y-M-D h:m:s');
+          // });
+          this.list = response.data.record_list.full_order_info_list;
           this.total = response.data.total;
           this.listLoading = false;
         });
     },
+
     operationHandle(index, row, type) {
       let param = {
         orderId: row.id,

@@ -108,9 +108,10 @@ export default {
     },
     gradeFilter(status) {
       const statusMap = {
-        1: "初级",
+        0: "普通会员",
+        1: "高级",
         2: "中级",
-        3: "高级"
+        3: "初级"
       };
       return statusMap[status];
     },
